@@ -14,3 +14,7 @@ scale = Vector2(10, 10)
 [node name="player" parent="." instance=ExtResource("2_dqcrw")]
 position = Vector2(171, 53)
 scale = Vector2(10, 10)
+
+[node name="asteroid2" parent="." instance=ExtResource("1_txdfa")]
+position = Vector2(501, 139)
+scale = Vector2(10, 10)
