@@ -9,6 +9,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_i3ar3"]
 
 [node name="asteroid" type="StaticBody2D"]
+collision_layer = 9
+collision_mask = 13
 script = ExtResource("1_6kl0j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -20,10 +22,10 @@ mesh = SubResource("SphereMesh_j2eva")
 
 [node name="gravityArea" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="gravityArea"]
-scale = Vector2(2.5, 2.5)
+scale = Vector2(4, 4)
 shape = SubResource("CircleShape2D_i3ar3")
 
 [connection signal="body_entered" from="gravityArea" to="." method="_on_gravity_area_body_entered"]

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://357tgtx5ohaj"]
+
+[ext_resource type="Script" path="res://player/bullet.gd" id="1_lckvw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ab0uu"]
+radius = 10.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_nmshc"]
+
+[node name="bullet" type="CharacterBody2D"]
+collision_layer = 12
+collision_mask = 8
+motion_mode = 1
+script = ExtResource("1_lckvw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.2, 0.2)
+shape = SubResource("CircleShape2D_ab0uu")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+scale = Vector2(4, 4)
+mesh = SubResource("SphereMesh_nmshc")

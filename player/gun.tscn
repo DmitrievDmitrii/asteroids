@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq4uga3f5q44"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_umvas"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_al3m6"]
+
+[node name="gun" type="MeshInstance2D"]
+mesh = SubResource("SphereMesh_umvas")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(0, -1.4)
+scale = Vector2(0.2, 1.6)
+mesh = SubResource("CapsuleMesh_al3m6")

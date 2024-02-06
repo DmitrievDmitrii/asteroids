@@ -7,6 +7,10 @@ const JUMP_VELOCITY = -40.0
 var currentGravity = Vector2.ZERO
 var nearestAsteroid
 var isOnJump = true
+var gun
+
+func _ready():
+	gun = $gun
 
 func addGravity(gravityObject):
 	if !gravityObjects.has(gravityObject):
@@ -15,6 +19,15 @@ func addGravity(gravityObject):
 func removeGravity(gravityObject):
 	if gravityObjects.has(gravityObject):
 		gravityObjects.erase(gravityObject)
+		
+func _input(event):
+   # Mouse in viewport coordinates.
+	if event is InputEventMouseButton:
+		if event.pressed:
+			var bullet = load("res://player/bullet.tscn").instantiate()
+			get_parent().add_child(bullet)
+			bullet.global_position = global_position
+			bullet.velocity = (event.position - position).normalized()*100
 
 func _physics_process(delta):
 	currentGravity = Vector2.ZERO
@@ -28,7 +41,9 @@ func _physics_process(delta):
 		if position.distance_to(asteroid.position) < position.distance_to(nearestAsteroid.position):
 			nearestAsteroid = asteroid
 
-	look_at(transform.origin + currentGravity)
+	look_at(transform.origin - currentGravity)
+	
+	gun.look_at(get_viewport().get_mouse_position())
 	rotate(PI/2)
 	if isOnJump:
 		velocity += currentGravity * delta
