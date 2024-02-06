@@ -12,3 +12,13 @@ func getAcceleration(object):
 	var direction = self.position.direction_to(object.position).normalized()
 	var acceleration = (G * mass) / distance ** 2
 	return direction * acceleration
+
+
+func _on_gravity_area_body_entered(body):
+	print("entered2")
+	body.addGravity(self)
+
+
+func _on_gravity_area_body_exited(body):
+	print("exited2")
+	body.removeGravity(self)

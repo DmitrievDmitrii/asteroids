@@ -8,6 +8,14 @@ var currentGravity = Vector2.ZERO
 var nearestAsteroid
 var isOnJump = true
 
+func addGravity(gravityObject):
+	if !gravityObjects.has(gravityObject):
+		gravityObjects.append(gravityObject)
+		
+func removeGravity(gravityObject):
+	if gravityObjects.has(gravityObject):
+		gravityObjects.erase(gravityObject)
+
 func _physics_process(delta):
 	currentGravity = Vector2.ZERO
 	if is_on_wall():
@@ -21,7 +29,7 @@ func _physics_process(delta):
 			nearestAsteroid = asteroid
 
 	look_at(transform.origin + currentGravity)
-	rotate(-PI/2)
+	rotate(PI/2)
 	if isOnJump:
 		velocity += currentGravity * delta
 	else:

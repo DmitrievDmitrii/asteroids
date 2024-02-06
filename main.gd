@@ -9,8 +9,8 @@ func _ready():
 	asteroid = $asteroid
 	asteroid2 = $asteroid2
 	player = $player
-	player.gravityObjects.append(asteroid)
-	player.gravityObjects.append(asteroid2)
+	#player.gravityObjects.append(asteroid)
+	#player.gravityObjects.append(asteroid2)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
