@@ -8,6 +8,7 @@ var currentGravity = Vector2.ZERO
 var nearestAsteroid
 var isOnJump = true
 var gun
+var isOnJetpack = false
 
 func _ready():
 	gun = $gun
@@ -24,15 +25,17 @@ func _input(event):
    # Mouse in viewport coordinates.
 	if event is InputEventMouseButton:
 		if event.pressed:
+			print(self.position)
 			var bullet = load("res://player/bullet.tscn").instantiate()
 			get_parent().add_child(bullet)
 			bullet.global_position = global_position
-			bullet.velocity = (event.position - position).normalized()*100
+			bullet.velocity = (get_global_mouse_position() - global_position).normalized()*100
 
 func _physics_process(delta):
 	currentGravity = Vector2.ZERO
 	if is_on_wall():
 		isOnJump = false
+		isOnJetpack = false
 
 	for asteroid in gravityObjects:
 		currentGravity -= asteroid.getAcceleration(self)
@@ -41,10 +44,13 @@ func _physics_process(delta):
 		if position.distance_to(asteroid.position) < position.distance_to(nearestAsteroid.position):
 			nearestAsteroid = asteroid
 
-	look_at(transform.origin - currentGravity)
+	if currentGravity:
+		look_at(transform.origin - currentGravity)
+		rotate(PI/2)
 	
-	gun.look_at(get_viewport().get_mouse_position())
-	rotate(PI/2)
+	gun.look_at(get_global_mouse_position())
+	gun.rotate(PI/2)
+	
 	if isOnJump:
 		velocity += currentGravity * delta
 	else:
@@ -58,5 +64,11 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and !isOnJump:
 		isOnJump = true
 		velocity -= nearestAsteroid.getAcceleration(self).normalized() * JUMP_VELOCITY
+	
+	if Input.is_action_just_pressed("jetpack") and isOnJump:
+		isOnJetpack = true
+	
+	if isOnJetpack:
+		velocity += direction * 0.4
 	
 	move_and_slide()
