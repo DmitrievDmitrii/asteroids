@@ -21,8 +21,7 @@ func removeGravity(gravityObject):
 	if gravityObjects.has(gravityObject):
 		gravityObjects.erase(gravityObject)
 		
-func _input(event):
-   # Mouse in viewport coordinates.
+func _input(event):  
 	if event is InputEventMouseButton:
 		if event.pressed:
 			print(self.position)
@@ -44,9 +43,8 @@ func _physics_process(delta):
 		if position.distance_to(asteroid.position) < position.distance_to(nearestAsteroid.position):
 			nearestAsteroid = asteroid
 
-	if currentGravity:
-		look_at(transform.origin - currentGravity)
-		rotate(PI/2)
+	if nearestAsteroid:
+		rotation = rotate_toward(rotation, nearestAsteroid.position.angle_to_point(position) + PI/2, 0.1)
 	
 	gun.look_at(get_global_mouse_position())
 	gun.rotate(PI/2)
