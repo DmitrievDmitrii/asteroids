@@ -27,7 +27,7 @@ func _input(event):
 			print(self.position)
 			var bullet = load("res://player/bullet.tscn").instantiate()
 			get_parent().add_child(bullet)
-			bullet.global_position = global_position
+			bullet.global_position = $gun/MeshInstance2D/shootingPoint.global_position
 			bullet.velocity = (get_global_mouse_position() - global_position).normalized()*100
 
 func _physics_process(delta):

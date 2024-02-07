@@ -11,3 +11,6 @@ mesh = SubResource("SphereMesh_umvas")
 position = Vector2(0, -1.4)
 scale = Vector2(0.2, 1.6)
 mesh = SubResource("CapsuleMesh_al3m6")
+
+[node name="shootingPoint" type="Marker2D" parent="MeshInstance2D"]
+position = Vector2(0, -1)
