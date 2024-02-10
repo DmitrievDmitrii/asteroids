@@ -32,6 +32,7 @@ func _input(event):
 
 func _physics_process(delta):
 	currentGravity = Vector2.ZERO
+	$jetpack/fire.emitting = false
 	if is_on_wall():
 		isOnJump = false
 		isOnJetpack = false
@@ -66,7 +67,9 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jetpack") and isOnJump:
 		isOnJetpack = true
 	
-	if isOnJetpack:
+	if isOnJetpack and direction:
+		$jetpack/fire.emitting = true
 		velocity += direction * 0.4
+		
 	
 	move_and_slide()
